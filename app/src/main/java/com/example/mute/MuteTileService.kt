@@ -115,8 +115,8 @@ class MuteTileService : TileService(), TimePickerDialog.OnTimeSetListener {
         val flag = if (state) AudioManager.ADJUST_MUTE else AudioManager.ADJUST_UNMUTE
         val manager = getSystemService(AUDIO_SERVICE) as AudioManager
         manager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, flag, 0);
-        manager.adjustStreamVolume(AudioManager.STREAM_ALARM, flag, 0);
-        manager.adjustStreamVolume(AudioManager.STREAM_MUSIC, flag, 0);
+        //manager.adjustStreamVolume(AudioManager.STREAM_ALARM, flag, 0);
+        //manager.adjustStreamVolume(AudioManager.STREAM_MUSIC, flag, 0);
         manager.adjustStreamVolume(AudioManager.STREAM_RING, flag, 0);
         manager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, flag, 0);
     }
@@ -131,7 +131,7 @@ class MuteTileService : TileService(), TimePickerDialog.OnTimeSetListener {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, MuteTileService::class.java)
         intent.putExtra(ACTION_KEY, ACTION_CANCEL)
-        val timerIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+        val timerIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_MUTABLE)
         alarmManager.setExactAndAllowWhileIdle(RTC_WAKEUP, time.timeInMillis, timerIntent)
     }
 
@@ -150,7 +150,7 @@ class MuteTileService : TileService(), TimePickerDialog.OnTimeSetListener {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, MuteTileService::class.java)
         intent.putExtra(ACTION_KEY, ACTION_CANCEL)
-        val timerIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+        val timerIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT or  PendingIntent.FLAG_MUTABLE)
         alarmManager.cancel(timerIntent)
     }
 
