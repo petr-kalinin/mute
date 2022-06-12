@@ -145,7 +145,7 @@ class MuteTileService : TileService(), TimePickerDialog.OnTimeSetListener {
 
         val serviceIntent = Intent(this, MuteService::class.java)
         serviceIntent.putExtra(MuteService.ACTION, MuteService.CANCEL)
-        startService(serviceIntent)
+        stopService(serviceIntent)
 
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, MuteTileService::class.java)
